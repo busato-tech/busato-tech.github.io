@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PRESENTS · Gaetan Busato</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Jetons relevés dans la feuille de style de busato.tech le 27/10/2026 */
+  :root {
+    --paper: #f3f2ee;
+    --ink: #0b0b0c;
+    --ink-muted: #55565a;
+    --accent: #ed5145;
+    --accent-deep: #c82a2a;
+    --accent-tint: #fdecea;
+    --night: #020203;
+    --night-muted: #a3a39e;
+    --rule: #e2e0da;
+    --rule-night: #ffffff1f;
+    --white: #fff;
+    --radius: 2px;
+    --gutter: clamp(16px, 4vw, 48px);
+    --max: 1360px;
+    --section-y: clamp(64px, 9vw, 128px);
+    --text-body: 1.125rem;
+    --text-lead: clamp(1.2rem, 1.1rem + .6vw, 1.5rem);
+    --text-h2: clamp(2rem, 1.4rem + 2.6vw, 3.5rem);
+    --text-display: clamp(2.6rem, .6rem + 6vw, 6rem);
+    --text-label: .8125rem;
+    --sans: "Geist", "Helvetica Neue", Arial, sans-serif;
+    --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: var(--text-body);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+  .label {
+    font-family: var(--mono);
+    font-size: var(--text-label);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .label .n { color: var(--accent); }
+  h1, h2, h3 { margin: 0; font-weight: 600; }
+  h2 { font-size: var(--text-h2); line-height: 1.02; letter-spacing: -.045em; }
+  h3 { font-size: 1.375rem; line-height: 1.2; letter-spacing: -.02em; font-weight: 500; }
+  p { margin: 0; }
+
+  /* En-tête */
+  .topbar {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--night); color: var(--white);
+    border-bottom: 1px solid var(--rule-night);
+  }
+  .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+  .brand { font-weight: 600; letter-spacing: -.02em; white-space: nowrap; }
+  .topbar .btn { white-space: nowrap; }
+  .brand small { font-family: var(--mono); font-weight: 400; font-size: .75rem; color: var(--night-muted); margin-left: 8px; }
+  .topbar .for { font-family: var(--mono); font-size: .75rem; color: var(--night-muted); text-transform: uppercase; letter-spacing: .04em; }
+
+  /* Boutons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 20px; border-radius: var(--radius);
+    font-size: 1rem; font-weight: 500; text-decoration: none;
+    border: 1px solid transparent; transition: transform .2s cubic-bezier(.2,.7,.1,1);
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-light { background: var(--white); color: var(--ink); }
+  .btn-outline { border-color: #ffffff59; color: var(--white); }
+  .btn-dark { background: var(--ink); color: var(--white); }
+
+  /* Hero */
+  .hero { position: relative; background: var(--night); color: var(--white); overflow: hidden; }
+  .hero-photo { position: absolute; top: 0; right: 0; bottom: 0; width: 52%; }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 20%; display: block; }
+  .hero-photo::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(90deg, var(--night) 0%, #020203d9 28%, #02020300 66%);
+  }
+  .hero .wrap { position: relative; z-index: 1; padding-top: clamp(56px, 8vw, 112px); padding-bottom: clamp(56px, 8vw, 112px); }
+  .hero .label { color: var(--night-muted); }
+  .hero .for-line { margin-top: 10px; font-family: var(--mono); font-size: var(--text-label); text-transform: uppercase; letter-spacing: .04em; color: var(--accent); }
+  .hero h1 { margin-top: 28px; font-size: var(--text-display); line-height: .98; letter-spacing: -.05em; max-width: 9.5em; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero .lead { margin-top: 28px; max-width: 27em; font-size: var(--text-lead); line-height: 1.45; color: #d9d8d3; }
+  .hero .lead strong { color: var(--white); font-weight: 600; }
+  .hero .actions { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 12px; }
+
+  /* Sections */
+  section.block { padding: var(--section-y) 0; border-top: 1px solid var(--rule); }
+  .split { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(32px, 6vw, 96px); }
+  .split .intro p { margin-top: 20px; color: var(--ink-muted); max-width: 26em; }
+  .rows { border-top: 1px solid var(--ink); }
+  .row { display: grid; grid-template-columns: 11em 1fr; gap: 24px; padding: 26px 0; border-bottom: 1px solid var(--rule); }
+  .row p { font-size: 1.0625rem; }
+  .row q { quotes: "« " " »"; }
+
+  /* Diagnostic (fond corail) */
+  .diag { background: var(--accent); color: var(--ink); padding: var(--section-y) 0; }
+  .diag .label { color: var(--ink); }
+  .diag .grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
+  .diag h2 { margin-top: 20px; }
+  .diag .intro p { margin-top: 20px; max-width: 28em; }
+  .card {
+    background: var(--white); border-radius: var(--radius);
+    box-shadow: 12px 12px 0 var(--ink);
+    padding: 8px 24px 12px;
+  }
+  .card .card-head { padding: 14px 0; border-bottom: 1px solid var(--rule); }
+  .card .item { display: grid; grid-template-columns: 2.5em 1fr; gap: 12px; padding: 18px 0; border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .card .item:last-child { border-bottom: 0; }
+  .card .num { font-family: var(--mono); font-size: var(--text-label); color: var(--accent); padding-top: 4px; }
+  .card .kind { font-weight: 600; font-size: 1.0625rem; letter-spacing: -.01em; }
+  .card .what { color: var(--ink-muted); font-size: .9375rem; margin-top: 2px; }
+
+  /* Tâches en détail */
+  .tasks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 56px; }
+  .task { background: var(--white); border: 1px solid var(--rule); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 20px; }
+  .task .top { display: flex; justify-content: space-between; gap: 12px; }
+  .task dl { margin: 0; display: grid; gap: 16px; }
+  .task dt { font-family: var(--mono); font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-muted); }
+  .task dd { margin: 4px 0 0; font-size: 1rem; }
+  .task .quote { color: var(--ink-muted); }
+  .task .question { background: var(--accent-tint); border-left: 2px solid var(--accent); padding: 12px 14px; font-weight: 500; }
+  .tag { display: inline-block; font-family: var(--mono); font-size: .75rem; border: 1px solid var(--rule); border-radius: var(--radius); padding: 4px 8px; color: var(--ink); white-space: nowrap; }
+  .task .tags { margin-top: auto; display: flex; flex-wrap: wrap; gap: 8px; }
+  .no { margin-top: 20px; display: grid; grid-template-columns: 11em 1fr; gap: 24px; padding: 26px 28px; background: var(--night); color: var(--white); border-radius: var(--radius); }
+  .no .label { color: var(--accent); }
+  .no p { font-size: 1.125rem; }
+
+  /* Domaines A B C */
+  .domain { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(24px, 6vw, 96px); padding: 40px 0; border-top: 1px solid var(--ink); }
+  .domain:last-child { border-bottom: 1px solid var(--ink); }
+  .domain .letter { font-size: clamp(4rem, 3rem + 5vw, 8rem); line-height: .8; color: var(--accent); font-weight: 500; letter-spacing: -.06em; }
+  .domain h3 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); font-weight: 600; letter-spacing: -.03em; }
+  .domain p { margin-top: 16px; color: var(--ink-muted); max-width: 34em; }
+  .domain .tags { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .domain .for-you { margin-top: 16px; font-family: var(--mono); font-size: var(--text-label); color: var(--accent-deep); text-transform: uppercase; letter-spacing: .04em; }
+
+  /* Méthode */
+  .method { counter-reset: m; border-top: 1px solid var(--ink); }
+  .method li { list-style: none; display: grid; grid-template-columns: 3em 1fr; gap: 12px; padding: 24px 0; border-bottom: 1px solid var(--rule); }
+  .method ol { margin: 0; padding: 0; }
+  .method .num { font-family: var(--mono); font-size: var(--text-label); color: var(--accent); padding-top: 6px; }
+  .method p { color: var(--ink-muted); margin-top: 4px; }
+
+  /* Où */
+  .where { background: var(--accent-tint); padding: 40px 0; border-top: 1px solid var(--rule); }
+  .where .wrap { display: grid; grid-template-columns: 11em 1fr; gap: 24px; align-items: baseline; }
+  .where p { font-size: var(--text-lead); letter-spacing: -.01em; }
+
+  /* Contact */
+  .contact { background: var(--night); color: var(--white); padding: var(--section-y) 0; }
+  .contact .label { color: var(--night-muted); }
+  .contact h2 { margin-top: 20px; max-width: 12em; }
+  .contact p { margin-top: 24px; max-width: 32em; color: #d9d8d3; font-size: var(--text-lead); }
+  .contact .actions { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 12px; }
+  footer { background: var(--night); color: var(--night-muted); border-top: 1px solid var(--rule-night); }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 24px; padding-bottom: 24px; font-size: .875rem; }
+
+  /* Annotations de relecture (maquette seulement) */
+  .annot-toggle {
+    position: fixed; right: 16px; bottom: 16px; z-index: 50;
+    font-family: var(--mono); font-size: .75rem; text-transform: uppercase; letter-spacing: .04em;
+    background: var(--ink); color: var(--white); border: 1px solid #ffffff40; border-radius: var(--radius);
+    padding: 10px 14px; cursor: pointer;
+  }
+  .annot-note { display: none; }
+  body.annot .annot-note {
+    display: block; background: #fff8d6; color: var(--ink); border-bottom: 1px solid #e6d27a;
+    font-size: .9375rem; padding: 14px var(--gutter);
+  }
+  body.annot [data-src] { outline: 2px dashed var(--src-color); outline-offset: 3px; position: relative; }
+  body.annot [data-src]::before {
+    content: attr(data-src); position: absolute; top: -12px; left: 0; z-index: 5;
+    font-family: var(--mono); font-size: .625rem; letter-spacing: .04em; text-transform: uppercase;
+    background: var(--src-color); color: var(--white); padding: 2px 6px; border-radius: 2px; white-space: nowrap;
+  }
+  [data-src^="fixe"] { --src-color: #6b6b70; }
+  [data-src^="fiche"] { --src-color: #2b6cb0; }
+  [data-src^="catalogue"] { --src-color: #8a3ffc; }
+  [data-src^="code"] { --src-color: #1f8a4c; }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .hero-photo { width: 100%; opacity: .38; }
+    .hero-photo::after { background: linear-gradient(180deg, #02020366 0%, var(--night) 92%); }
+    .split, .diag .grid, .domain { grid-template-columns: 1fr; }
+    .tasks { grid-template-columns: 1fr; }
+    .row, .no, .where .wrap { grid-template-columns: 1fr; gap: 8px; }
+    .card { box-shadow: 8px 8px 0 var(--ink); }
+    .topbar .for { display: none; }
+    .brand small { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="annot-note">
+  <strong>Maquette Outsignal, non déployée.</strong> Entreprise réelle : PRESENTS (SIREN 350 246 039, Lyon 3e).
+  Les faits sur PRESENTS viennent de presents.fr et du registre, lus le 27/10/2026. Pas d’appel à la fiche Linkup : sa sortie est simulée.
+  Couleurs des cadres : <span style="color:#6b6b70">gris = texte fixe de Gaëtan</span> ·
+  <span style="color:#2b6cb0">bleu = fiche entreprise rédigée par l’IA</span> ·
+  <span style="color:#8a3ffc">violet = catalogue de Gaëtan choisi et adapté par l’IA</span> ·
+  <span style="color:#1f8a4c">vert = calculé par le code</span>.
+  La photo vient de busato.tech : son usage est à valider avec Gaëtan.
+</div>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">Gaetan Busato<small>busato.tech</small></div>
+    <div class="for" data-src="code · nom">Préparé pour PRESENTS</div>
+    <a class="btn btn-light" href="#contact" style="padding:10px 16px;font-size:.9375rem">Parlons-en →</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-photo">
+    <img src="https://busato.tech/images/portrait-face-couleur-1100.jpg" alt="Gaetan Busato, portrait de face, sur fond noir">
+  </div>
+  <div class="wrap">
+    <div class="label" data-src="fixe">Architecte logiciel · IA agentique · Région lyonnaise</div>
+    <div class="for-line" data-src="code · nom">Une page préparée pour PRESENTS</div>
+    <h1 data-src="fixe">Concentrez-vous sur votre <em>expertise.</em></h1>
+    <p class="lead">
+      <span data-src="fixe">Mon expertise, c’est de vous faire <strong>gagner du temps</strong>.</span>
+      <span data-src="fiche · ia">Chez PRESENTS, c’est le temps de vos coordonnateurs SPS et de vos maîtres d’œuvre.</span>
+      <span data-src="fixe">Je repère les tâches qui leur en coûtent le plus, puis je construis les <strong>logiciels</strong> et les <strong>automatisations IA</strong> qui le leur rendent.</span>
+    </p>
+    <div class="actions">
+      <a class="btn btn-light" href="#diagnostic">Voir les 3 tâches repérées ↓</a>
+      <a class="btn btn-outline" href="#contact">Un premier échange, gratuit</a>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="compris">
+  <div class="wrap split">
+    <div class="intro">
+      <div class="label"><span class="n">01</span> · Ce que j’ai compris</div>
+      <h2 style="margin-top:20px">Ce que j’ai compris de PRESENTS.</h2>
+      <p data-src="fixe">À partir de vos informations publiques. Si je me trompe quelque part, dites-le-moi : c’est le point de départ de tout diagnostic.</p>
+    </div>
+    <div class="rows">
+      <div class="row" data-src="fiche · marché">
+        <div class="label">Votre marché</div>
+        <p>La prévention et l’ingénierie des grandes opérations de travaux publics : routes et autoroutes, tunnels et métros, trams, ouvrages d’art, aménagements urbains, énergies renouvelables. Vos clients sont des maîtres d’ouvrage publics, des gestionnaires d’infrastructures, des grands comptes autoroutiers et des entreprises de travaux.</p>
+      </div>
+      <div class="row" data-src="fiche · proposition de valeur">
+        <div class="label">Ce que vous promettez</div>
+        <p><q>L’objectif zéro accident</q>, sans surcoûts et dans les délais. Vous accompagnez le maître d’ouvrage de la conception jusqu’à la réception des travaux.</p>
+      </div>
+      <div class="row" data-src="fiche · positionnement">
+        <div class="label">Votre positionnement</div>
+        <p>Deux métiers sous le même toit, la coordination SPS et la maîtrise d’œuvre, avec des équipes formées à l’autre métier. Des coordonnateurs et des maîtres d’œuvre <q>parfaitement indépendants</q>.</p>
+      </div>
+      <div class="row" data-src="fiche · organisation">
+        <div class="label">Votre organisation</div>
+        <p>180 collaborateurs, 6 directions régionales, 21 implantations et un siège à Lyon. Plus de 30 ans de métier, et la fusion de Sitétudes et de PRESENTS en 2021.</p>
+      </div>
+      <div class="row" data-src="fiche · preuves">
+        <div class="label">Vos preuves</div>
+        <p>La ligne de métro automatique du Grand Paris, la troisième ligne de métro de Toulouse, la place Grandclément à Villeurbanne. Le label RSE LUCIE 26000. Et une activité de formation des futurs coordonnateurs SPS.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="diag" id="diagnostic">
+  <div class="wrap grid">
+    <div class="intro">
+      <div class="label">02 · Diagnostic · Hypothèses à vérifier</div>
+      <h2>Trois tâches qui coûtent du temps chez vous.</h2>
+      <p data-src="fixe">Je pars de ce que vous écrivez de vos missions. Ce sont des hypothèses : elles se vérifient avec vous, sur vos vrais dossiers, avant toute proposition.</p>
+    </div>
+    <div class="card" data-src="catalogue · ia">
+      <div class="card-head label">Aperçu pour PRESENTS</div>
+      <a class="item" href="#t1">
+        <span class="num">01</span>
+        <span><span class="kind">Le plus de valeur</span><span class="what" style="display:block">Tenir à jour le PGCSPS et le DIUO au fil du chantier</span></span>
+      </a>
+      <a class="item" href="#t2">
+        <span class="num">02</span>
+        <span><span class="kind">Le plus rapide à tester</span><span class="what" style="display:block">Harmoniser les PPSPS reçus des entreprises</span></span>
+      </a>
+      <a class="item" href="#t3">
+        <span class="num">03</span>
+        <span><span class="kind">Le plus durable</span><span class="what" style="display:block">Les mêmes modèles dans vos 21 implantations</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="block" style="border-top:0">
+  <div class="wrap">
+    <div class="label"><span class="n">03</span> · Les trois tâches en détail</div>
+    <h2 style="margin-top:20px;max-width:14em">Ce que je construirais, tâche par tâche.</h2>
+
+    <div class="tasks">
+      <article class="task" id="t1" data-src="catalogue · ia">
+        <div class="top"><span class="label"><span class="n">01</span> · Le plus de valeur</span></div>
+        <h3>Tenir à jour le PGCSPS et le DIUO au fil du chantier</h3>
+        <dl>
+          <div><dt>Ce que vous en écrivez</dt><dd class="quote">« Mettant à jour ses pièces écrites pour tenir compte de l’évolution du chantier. »</dd></div>
+          <div><dt>Ce que je construirais</dt><dd>Un agent qui lit le registre journal et les notes de visite, puis prépare la mise à jour du PGCSPS et du DIUO. Le coordonnateur relit, corrige et valide : la décision reste la sienne.</dd></div>
+          <div><dt>La question qui la chiffre</dt><dd class="question">Combien de PGCSPS et de DIUO un coordonnateur met-il à jour chaque mois ?</dd></div>
+        </dl>
+        <div class="tags"><span class="tag">B · IA agentique</span></div>
+      </article>
+
+      <article class="task" id="t2" data-src="catalogue · ia">
+        <div class="top"><span class="label"><span class="n">02</span> · Le plus rapide à tester</span></div>
+        <h3>Harmoniser les PPSPS reçus des entreprises</h3>
+        <dl>
+          <div><dt>Ce que vous en écrivez</dt><dd class="quote">« Harmonisant leurs Plans Particuliers de Sécurité et de Protection de la Santé (PPSPS). »</dd></div>
+          <div><dt>Ce que je construirais</dt><dd>Une relecture de chaque PPSPS reçu face au PGCSPS de l’opération : les écarts sont listés, avec la page concernée. Le coordonnateur tranche.</dd></div>
+          <div><dt>La question qui la chiffre</dt><dd class="question">Combien de PPSPS une grande opération vous fait-elle relire ?</dd></div>
+        </dl>
+        <div class="tags"><span class="tag">B · IA agentique</span></div>
+      </article>
+
+      <article class="task" id="t3" data-src="catalogue · ia">
+        <div class="top"><span class="label"><span class="n">03</span> · Le plus durable</span></div>
+        <h3>Les mêmes modèles dans vos 21 implantations</h3>
+        <dl>
+          <div><dt>Ce que vous en écrivez</dt><dd class="quote">« 6 directions régionales », « 21 implantations locales » et la « digitalisation de nos process sur les missions CSPS ».</dd></div>
+          <div><dt>Ce que je construirais</dt><dd>Des compétences réutilisables, communes à toutes vos implantations, et des équipes formées pour s’en servir et les faire évoluer. Le savoir-faire reste chez vous.</dd></div>
+          <div><dt>La question qui la chiffre</dt><dd class="question">Vos 21 implantations partent-elles toutes des mêmes modèles de documents ?</dd></div>
+        </dl>
+        <div class="tags"><span class="tag">B · IA agentique</span><span class="tag">C · Formation</span></div>
+      </article>
+    </div>
+
+    <div class="no" data-src="catalogue · ia">
+      <div class="label">Et là où je dirais non</div>
+      <p>La visite de chantier elle-même. L’IA prépare, range et vérifie les pièces écrites ; le regard du coordonnateur sur le terrain ne se remplace pas.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="label"><span class="n">04</span> · Domaines</div>
+    <h2 style="margin:20px 0 48px" data-src="fixe">Trois façons de travailler ensemble.</h2>
+
+    <div class="domain">
+      <div class="letter">A</div>
+      <div>
+        <h3 data-src="fixe">Architecture logicielle et SaaS métier</h3>
+        <p data-src="fixe">Des SaaS et des CRM qui tiennent dans la durée : un modèle métier explicite, une clean architecture, des autorisations fines et des données exploitables.</p>
+        <div class="tags"><span class="tag">TypeScript</span><span class="tag">DDD</span><span class="tag">CQRS</span><span class="tag">Event Sourcing</span></div>
+      </div>
+    </div>
+    <div class="domain">
+      <div class="letter">B</div>
+      <div>
+        <h3 data-src="fixe">IA agentique et automatisation de processus</h3>
+        <p data-src="fixe">Des agents qui agissent dans vos outils : connexion par le protocole MCP, compétences réutilisables, mémoire persistante, processus exécutés de bout en bout.</p>
+        <div class="tags"><span class="tag">Claude</span><span class="tag">MCP</span><span class="tag">Skills</span><span class="tag">Multi-agents</span></div>
+        <div class="for-you" data-src="code · tâches">→ Pour vous : tâches 01, 02 et 03</div>
+      </div>
+    </div>
+    <div class="domain">
+      <div class="letter">C</div>
+      <div>
+        <h3 data-src="fixe">Accompagnement et formation des équipes</h3>
+        <p data-src="fixe">Je forme les équipes et les comités de direction sur leurs propres tâches. Les formations sont portées par AMADIA, organisme de formation certifié Qualiopi.</p>
+        <div class="for-you" data-src="code · tâches">→ Pour vous : tâche 03</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap split">
+    <div class="intro">
+      <div class="label"><span class="n">05</span> · Méthode</div>
+      <h2 style="margin-top:20px" data-src="fixe">Le problème d’abord. L’IA après.</h2>
+    </div>
+    <div class="method" data-src="fixe">
+      <ol>
+        <li><span class="num">01</span><div><h3>Partir de vos processus réels</h3><p>Vos tâches, vos outils, vos dossiers. Jamais un cas d’école.</p></div></li>
+        <li><span class="num">02</span><div><h3>Diagnostiquer avant de proposer</h3><p>Pas de solution tant que le problème n’est pas compris.</p></div></li>
+        <li><span class="num">03</span><div><h3>Rester pendant la mise en œuvre</h3><p>Je ne remets pas un rapport pour repartir ensuite.</p></div></li>
+        <li><span class="num">04</span><div><h3>Viser votre autonomie</h3><p>Le bon indicateur : le jour où vous n’avez plus besoin de moi.</p></div></li>
+        <li><span class="num">05</span><div><h3>Dire non quand ce n’est pas la bonne solution</h3><p>Y compris quand l’IA n’est pas la réponse.</p></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="where">
+  <div class="wrap">
+    <div class="label"><span class="n">06</span> · Où</div>
+    <p data-src="code · ville">Votre siège est à Lyon : je viens chez vous. Vos directions régionales, je les accompagne en visio.</p>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="label">07 · Contact</div>
+    <h2 data-src="fixe">Un projet, une question ? Parlons-en.</h2>
+    <p data-src="fixe">Le plus simple : répondez à mon message avec le numéro de la tâche qui vous parle. Ou réservons un premier échange, gratuit.</p>
+    <div class="actions">
+      <a class="btn btn-light" href="#contact" title="Lien de prise de rendez-vous à fournir par Gaëtan">Prendre rendez-vous →</a>
+      <a class="btn btn-outline" href="mailto:accompagnement@busato.tech">accompagnement@busato.tech</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Gaetan Busato · EURL</span>
+    <span data-src="code · nom et date">Page préparée pour PRESENTS à partir de ses informations publiques, le 27/10/2026.</span>
+  </div>
+</footer>
+
+<button class="annot-toggle" type="button" aria-pressed="false">Voir les zones variables</button>
+<script>
+  const btn = document.querySelector('.annot-toggle');
+  btn.addEventListener('click', () => {
+    const on = document.body.classList.toggle('annot');
+    btn.setAttribute('aria-pressed', String(on));
+    btn.textContent = on ? 'Masquer les zones variables' : 'Voir les zones variables';
+    if (on) window.scrollTo({ top: 0 });
+  });
+</script>
+</body>
+</html>
