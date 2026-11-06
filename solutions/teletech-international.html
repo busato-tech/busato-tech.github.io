@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TELETECH INTERNATIONAL · Gaetan Busato</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Jetons relevés dans la feuille de style de busato.tech le 27/10/2026 */
+  :root {
+    --paper: #f3f2ee;
+    --ink: #0b0b0c;
+    --ink-muted: #55565a;
+    --accent: #ed5145;
+    --accent-deep: #c82a2a;
+    --accent-tint: #fdecea;
+    --night: #020203;
+    --night-muted: #a3a39e;
+    --rule: #e2e0da;
+    --rule-night: #ffffff1f;
+    --white: #fff;
+    --radius: 2px;
+    --gutter: clamp(16px, 4vw, 48px);
+    --max: 1360px;
+    --section-y: clamp(64px, 9vw, 128px);
+    --text-body: 1.125rem;
+    --text-lead: clamp(1.2rem, 1.1rem + .6vw, 1.5rem);
+    --text-h2: clamp(2rem, 1.4rem + 2.6vw, 3.5rem);
+    --text-display: clamp(2.6rem, .6rem + 6vw, 6rem);
+    --text-label: .8125rem;
+    --sans: "Geist", "Helvetica Neue", Arial, sans-serif;
+    --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: var(--text-body);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+  .label {
+    font-family: var(--mono);
+    font-size: var(--text-label);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .label .n { color: var(--accent); }
+  h1, h2, h3 { margin: 0; font-weight: 600; }
+  h2 { font-size: var(--text-h2); line-height: 1.02; letter-spacing: -.045em; }
+  h3 { font-size: 1.375rem; line-height: 1.2; letter-spacing: -.02em; font-weight: 500; }
+  p { margin: 0; }
+
+  /* En-tête */
+  .topbar {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--night); color: var(--white);
+    border-bottom: 1px solid var(--rule-night);
+  }
+  .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+  .brand { font-weight: 600; letter-spacing: -.02em; white-space: nowrap; }
+  .topbar .btn { white-space: nowrap; }
+  .brand small { font-family: var(--mono); font-weight: 400; font-size: .75rem; color: var(--night-muted); margin-left: 8px; }
+  .topbar .for { font-family: var(--mono); font-size: .75rem; color: var(--night-muted); text-transform: uppercase; letter-spacing: .04em; }
+
+  /* Boutons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 20px; border-radius: var(--radius);
+    font-size: 1rem; font-weight: 500; text-decoration: none;
+    border: 1px solid transparent; transition: transform .2s cubic-bezier(.2,.7,.1,1);
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-light { background: var(--white); color: var(--ink); }
+  .btn-outline { border-color: #ffffff59; color: var(--white); }
+  .btn-dark { background: var(--ink); color: var(--white); }
+
+  /* Hero */
+  .hero { position: relative; background: var(--night); color: var(--white); overflow: hidden; }
+  .hero-photo { position: absolute; top: 0; right: 0; bottom: 0; width: 52%; }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 20%; display: block; }
+  .hero-photo::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(90deg, var(--night) 0%, #020203d9 28%, #02020300 66%);
+  }
+  .hero .wrap { position: relative; z-index: 1; padding-top: clamp(56px, 8vw, 112px); padding-bottom: clamp(56px, 8vw, 112px); }
+  .hero .label { color: var(--night-muted); }
+  .hero .for-line { margin-top: 10px; font-family: var(--mono); font-size: var(--text-label); text-transform: uppercase; letter-spacing: .04em; color: var(--accent); }
+  .hero h1 { margin-top: 28px; font-size: var(--text-display); line-height: .98; letter-spacing: -.05em; max-width: 9.5em; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero .lead { margin-top: 28px; max-width: 27em; font-size: var(--text-lead); line-height: 1.45; color: #d9d8d3; }
+  .hero .lead strong { color: var(--white); font-weight: 600; }
+  .hero .actions { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 12px; }
+
+  /* Sections */
+  section.block { padding: var(--section-y) 0; border-top: 1px solid var(--rule); }
+  .split { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(32px, 6vw, 96px); }
+  .split .intro p { margin-top: 20px; color: var(--ink-muted); max-width: 26em; }
+  .rows { border-top: 1px solid var(--ink); }
+  .row { display: grid; grid-template-columns: 11em 1fr; gap: 24px; padding: 26px 0; border-bottom: 1px solid var(--rule); }
+  .row p { font-size: 1.0625rem; }
+  .row q { quotes: "« " " »"; }
+
+  /* Diagnostic (fond corail) */
+  .diag { background: var(--accent); color: var(--ink); padding: var(--section-y) 0; }
+  .diag .label { color: var(--ink); }
+  .diag .grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
+  .diag h2 { margin-top: 20px; }
+  .diag .intro p { margin-top: 20px; max-width: 28em; }
+  .card {
+    background: var(--white); border-radius: var(--radius);
+    box-shadow: 12px 12px 0 var(--ink);
+    padding: 8px 24px 12px;
+  }
+  .card .card-head { padding: 14px 0; border-bottom: 1px solid var(--rule); }
+  .card .item { display: grid; grid-template-columns: 2.5em 1fr; gap: 12px; padding: 18px 0; border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .card .item:last-child { border-bottom: 0; }
+  .card .num { font-family: var(--mono); font-size: var(--text-label); color: var(--accent); padding-top: 4px; }
+  .card .kind { font-weight: 600; font-size: 1.0625rem; letter-spacing: -.01em; }
+  .card .what { color: var(--ink-muted); font-size: .9375rem; margin-top: 2px; }
+
+  /* Tâches en détail */
+  .tasks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 56px; }
+  .task { background: var(--white); border: 1px solid var(--rule); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 20px; }
+  .task .top { display: flex; justify-content: space-between; gap: 12px; }
+  .task dl { margin: 0; display: grid; gap: 16px; }
+  .task dt { font-family: var(--mono); font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-muted); }
+  .task dd { margin: 4px 0 0; font-size: 1rem; }
+  .task .quote { color: var(--ink-muted); }
+  .task .question { background: var(--accent-tint); border-left: 2px solid var(--accent); padding: 12px 14px; font-weight: 500; }
+  .tag { display: inline-block; font-family: var(--mono); font-size: .75rem; border: 1px solid var(--rule); border-radius: var(--radius); padding: 4px 8px; color: var(--ink); white-space: nowrap; }
+  .task .tags { margin-top: auto; display: flex; flex-wrap: wrap; gap: 8px; }
+  .no { margin-top: 20px; display: grid; grid-template-columns: 11em 1fr; gap: 24px; padding: 26px 28px; background: var(--night); color: var(--white); border-radius: var(--radius); }
+  .no .label { color: var(--accent); }
+  .no p { font-size: 1.125rem; }
+
+  /* Domaines A B C */
+  .domain { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(24px, 6vw, 96px); padding: 40px 0; border-top: 1px solid var(--ink); }
+  .domain:last-child { border-bottom: 1px solid var(--ink); }
+  .domain .letter { font-size: clamp(4rem, 3rem + 5vw, 8rem); line-height: .8; color: var(--accent); font-weight: 500; letter-spacing: -.06em; }
+  .domain h3 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); font-weight: 600; letter-spacing: -.03em; }
+  .domain p { margin-top: 16px; color: var(--ink-muted); max-width: 34em; }
+  .domain .tags { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .domain .for-you { margin-top: 16px; font-family: var(--mono); font-size: var(--text-label); color: var(--accent-deep); text-transform: uppercase; letter-spacing: .04em; }
+
+  /* Méthode */
+  .method { counter-reset: m; border-top: 1px solid var(--ink); }
+  .method li { list-style: none; display: grid; grid-template-columns: 3em 1fr; gap: 12px; padding: 24px 0; border-bottom: 1px solid var(--rule); }
+  .method ol { margin: 0; padding: 0; }
+  .method .num { font-family: var(--mono); font-size: var(--text-label); color: var(--accent); padding-top: 6px; }
+  .method p { color: var(--ink-muted); margin-top: 4px; }
+
+  /* Où */
+  .where { background: var(--accent-tint); padding: 40px 0; border-top: 1px solid var(--rule); }
+  .where .wrap { display: grid; grid-template-columns: 11em 1fr; gap: 24px; align-items: baseline; }
+  .where p { font-size: var(--text-lead); letter-spacing: -.01em; }
+
+  /* Contact */
+  .contact { background: var(--night); color: var(--white); padding: var(--section-y) 0; }
+  .contact .label { color: var(--night-muted); }
+  .contact h2 { margin-top: 20px; max-width: 12em; }
+  .contact p { margin-top: 24px; max-width: 32em; color: #d9d8d3; font-size: var(--text-lead); }
+  .contact .actions { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 12px; }
+  footer { background: var(--night); color: var(--night-muted); border-top: 1px solid var(--rule-night); }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 24px; padding-bottom: 24px; font-size: .875rem; }
+
+  /* Zone sans contenu (l'IA n'a rien trouvé de sûr) : masquée */
+  .row:has(> p:empty), .item:has(.what:empty), .task:has(h3:empty), .no:has(p:empty),
+  .for-you:empty, .tags:empty, dd:empty, dl > div:has(dd:empty) { display: none; }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .hero-photo { width: 100%; opacity: .38; }
+    .hero-photo::after { background: linear-gradient(180deg, #02020366 0%, var(--night) 92%); }
+    .split, .diag .grid, .domain { grid-template-columns: 1fr; }
+    .tasks { grid-template-columns: 1fr; }
+    .row, .no, .where .wrap { grid-template-columns: 1fr; gap: 8px; }
+    .card { box-shadow: 8px 8px 0 var(--ink); }
+    .topbar .for { display: none; }
+    .brand small { display: none; }
+  }
+</style>
+</head>
+<body>
+
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">Gaetan Busato<small>busato.tech</small></div>
+    <div class="for">Préparé pour TELETECH INTERNATIONAL</div>
+    <a class="btn btn-light" href="https://busato.tech/" style="padding:10px 16px;font-size:.9375rem">Parlons-en →</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-photo">
+    <img src="../img/gaetan-busato-portrait.jpg" alt="Gaetan Busato, portrait de face, sur fond noir">
+  </div>
+  <div class="wrap">
+    <div class="label">Architecte logiciel · IA agentique · Région lyonnaise</div>
+    <div class="for-line">Une page préparée pour TELETECH INTERNATIONAL</div>
+    <h1>Concentrez-vous sur votre <em>expertise.</em></h1>
+    <p class="lead">
+      <span>Mon expertise, c’est de vous faire <strong>gagner du temps</strong>.</span>
+      <span>Chez TELETECH INTERNATIONAL, c&#39;est le temps de vos conseillers, de vos équipes back-office et de vos responsables de sites.</span>
+      <span>Je repère les tâches qui leur en coûtent le plus, puis je construis les <strong>logiciels</strong> et les <strong>automatisations IA</strong> qui le leur rendent.</span>
+    </p>
+    <div class="actions">
+      <a class="btn btn-light" href="#diagnostic">Voir les 3 tâches repérées ↓</a>
+      <a class="btn btn-outline" href="https://busato.tech/">Un premier échange, gratuit</a>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="compris">
+  <div class="wrap split">
+    <div class="intro">
+      <div class="label"><span class="n">01</span> · Ce que j’ai compris</div>
+      <h2 style="margin-top:20px">Ce que j’ai compris de TELETECH INTERNATIONAL.</h2>
+      <p>À partir de vos informations publiques. Si je me trompe quelque part, dites-le-moi : c’est le point de départ de tout diagnostic.</p>
+    </div>
+    <div class="rows">
+      <div class="row">
+        <div class="label">Votre marché</div>
+        <p>Teletech prend en charge la relation client externalisée : service client omnicanal, assistance technique, développement commercial et back-office. Ses clients sont des organisations publiques, des acteurs de l&#39;énergie, de l&#39;assurance et de la protection sociale.</p>
+      </div>
+      <div class="row">
+        <div class="label">Ce que vous promettez</div>
+        <p>Teletech promet une relation client plus fluide et plus performante. Le dispositif absorbe les variations de volume et s&#39;adapte aux besoins de chaque client.</p>
+      </div>
+      <div class="row">
+        <div class="label">Votre positionnement</div>
+        <p>Teletech associe des conseillers humains et sa suite d&#39;IA Acolyte, présentée comme un soutien et non un remplacement des équipes. L&#39;organisation multi-sites assure la continuité de service.</p>
+      </div>
+      <div class="row">
+        <div class="label">Votre organisation</div>
+        <p>Vous êtes entre 201 et 500 personnes, basées à Clichy, avec sept sites en France et deux au Maroc.</p>
+      </div>
+      <div class="row">
+        <div class="label">Vos preuves</div>
+        <p>Vos références citées incluent l&#39;INPI, la Caisse des Français de l&#39;Étranger, Garanka, Proxiserve, Génération et Cogevie.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="diag" id="diagnostic">
+  <div class="wrap grid">
+    <div class="intro">
+      <div class="label">02 · Diagnostic · Hypothèses à vérifier</div>
+      <h2>Trois tâches qui coûtent du temps chez vous.</h2>
+      <p>Je pars de ce que vous écrivez de vos missions. Ce sont des hypothèses : elles se vérifient avec vous, sur vos vrais dossiers, avant toute proposition.</p>
+    </div>
+    <div class="card">
+      <div class="card-head label">Aperçu pour TELETECH INTERNATIONAL</div>
+      <a class="item" href="#t1">
+        <span class="num">01</span>
+        <span><span class="kind">Le plus de valeur</span><span class="what" style="display:block">Résumer chaque échange et préparer la fiche de suivi</span></span>
+      </a>
+      <a class="item" href="#t2">
+        <span class="num">02</span>
+        <span><span class="kind">Le plus rapide à tester</span><span class="what" style="display:block">Préparer les réponses aux demandes d&#39;assistance de niveau 1</span></span>
+      </a>
+      <a class="item" href="#t3">
+        <span class="num">03</span>
+        <span><span class="kind">Le plus durable</span><span class="what" style="display:block">Former les équipes à travailler avec l&#39;IA au quotidien</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="block" style="border-top:0">
+  <div class="wrap">
+    <div class="label"><span class="n">03</span> · Les trois tâches en détail</div>
+    <h2 style="margin-top:20px;max-width:14em">Ce que je construirais, tâche par tâche.</h2>
+
+    <div class="tasks">
+      <article class="task" id="t1">
+        <div class="top"><span class="label"><span class="n">01</span> · Le plus de valeur</span></div>
+        <h3>Résumer chaque échange et préparer la fiche de suivi</h3>
+        <dl>
+          <div><dt>D’où je pars</dt><dd>Vos conseillers traitent des demandes sur plusieurs canaux pour des clients aux dispositifs différents.</dd></div>
+          <div><dt>Ce que je construirais</dt><dd>Je construirais un agent qui rédige le résumé de l&#39;échange et pré-remplit la fiche dans l&#39;outil du conseiller. Le conseiller relit, corrige et valide avant enregistrement.</dd></div>
+          <div><dt>La question qui la chiffre</dt><dd class="question">Combien de minutes un conseiller passe-t-il à documenter chaque échange ?</dd></div>
+        </dl>
+        <div class="tags"><span class="tag">B · IA agentique</span></div>
+      </article>
+
+      <article class="task" id="t2">
+        <div class="top"><span class="label"><span class="n">02</span> · Le plus rapide à tester</span></div>
+        <h3>Préparer les réponses aux demandes d&#39;assistance de niveau 1</h3>
+        <dl>
+          <div><dt>D’où je pars</dt><dd>Vous traitez des demandes d&#39;assistance technique de niveau 1 et 2, par exemple pour l&#39;INPI.</dd></div>
+          <div><dt>Ce que je construirais</dt><dd>Je construirais un outil qui propose un brouillon de réponse à partir de votre base de connaissances et de l&#39;historique de la demande. Le conseiller choisit, modifie ou écarte la proposition.</dd></div>
+          <div><dt>La question qui la chiffre</dt><dd class="question">Combien de demandes d&#39;assistance un conseiller traite-t-il par jour, et combien sont récurrentes ?</dd></div>
+        </dl>
+        <div class="tags"><span class="tag">A · Architecture logicielle</span><span class="tag">B · IA agentique</span></div>
+      </article>
+
+      <article class="task" id="t3">
+        <div class="top"><span class="label"><span class="n">03</span> · Le plus durable</span></div>
+        <h3>Former les équipes à travailler avec l&#39;IA au quotidien</h3>
+        <dl>
+          <div><dt>D’où je pars</dt><dd>Vous présentez l&#39;IA comme un soutien aux conseillers, avec une organisation répartie sur plusieurs sites.</dd></div>
+          <div><dt>Ce que je construirais</dt><dd>Je formerais vos conseillers et vos responsables sur leurs propres tâches, avec des méthodes communes à tous les sites. Chaque équipe garde la main sur ce qu&#39;elle délègue à l&#39;outil.</dd></div>
+          <div><dt>La question qui la chiffre</dt><dd class="question">Combien de personnes, sur combien de sites, utiliseraient ces outils chaque semaine ?</dd></div>
+        </dl>
+        <div class="tags"><span class="tag">C · Formation</span></div>
+      </article>
+    </div>
+
+    <div class="no">
+      <div class="label">Et là où je dirais non</div>
+      <p>L&#39;écoute d&#39;un usager en difficulté et le jugement sur un cas délicat. L&#39;IA prépare et résume ; la relation reste celle de vos conseillers.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="label"><span class="n">04</span> · Domaines</div>
+    <h2 style="margin:20px 0 48px">Trois façons de travailler ensemble.</h2>
+
+    <div class="domain">
+      <div class="letter">A</div>
+      <div>
+        <h3>Architecture logicielle et SaaS métier</h3>
+        <p>Des SaaS et des CRM qui tiennent dans la durée : un modèle métier explicite, une clean architecture, des autorisations fines et des données exploitables.</p>
+        <div class="tags"><span class="tag">TypeScript</span><span class="tag">DDD</span><span class="tag">CQRS</span><span class="tag">Event Sourcing</span></div>
+        <div class="for-you">→ Pour vous : tâche 02</div>
+      </div>
+    </div>
+    <div class="domain">
+      <div class="letter">B</div>
+      <div>
+        <h3>IA agentique et automatisation de processus</h3>
+        <p>Des agents qui agissent dans vos outils : connexion par le protocole MCP, compétences réutilisables, mémoire persistante, processus exécutés de bout en bout.</p>
+        <div class="tags"><span class="tag">Claude</span><span class="tag">MCP</span><span class="tag">Skills</span><span class="tag">Multi-agents</span></div>
+        <div class="for-you">→ Pour vous : tâches 01 et 02</div>
+      </div>
+    </div>
+    <div class="domain">
+      <div class="letter">C</div>
+      <div>
+        <h3>Accompagnement et formation des équipes</h3>
+        <p>Je forme les équipes et les comités de direction sur leurs propres tâches. Les formations sont portées par AMADIA, organisme de formation certifié Qualiopi.</p>
+        <div class="for-you">→ Pour vous : tâche 03</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap split">
+    <div class="intro">
+      <div class="label"><span class="n">05</span> · Méthode</div>
+      <h2 style="margin-top:20px">Le problème d’abord. L’IA après.</h2>
+    </div>
+    <div class="method">
+      <ol>
+        <li><span class="num">01</span><div><h3>Partir de vos processus réels</h3><p>Vos tâches, vos outils, vos dossiers. Jamais un cas d’école.</p></div></li>
+        <li><span class="num">02</span><div><h3>Diagnostiquer avant de proposer</h3><p>Pas de solution tant que le problème n’est pas compris.</p></div></li>
+        <li><span class="num">03</span><div><h3>Rester pendant la mise en œuvre</h3><p>Je ne remets pas un rapport pour repartir ensuite.</p></div></li>
+        <li><span class="num">04</span><div><h3>Viser votre autonomie</h3><p>Le bon indicateur : le jour où vous n’avez plus besoin de moi.</p></div></li>
+        <li><span class="num">05</span><div><h3>Dire non quand ce n’est pas la bonne solution</h3><p>Y compris quand l’IA n’est pas la réponse.</p></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="where">
+  <div class="wrap">
+    <div class="label"><span class="n">06</span> · Où</div>
+    <p>Hors de la région lyonnaise, je vous accompagne en visio.</p>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="label">07 · Contact</div>
+    <h2>Un projet, une question ? Parlons-en.</h2>
+    <p>Le plus simple : répondez à mon message avec le numéro de la tâche qui vous parle. Ou réservons un premier échange, gratuit.</p>
+    <div class="actions">
+      <a class="btn btn-light" href="https://busato.tech/">Prendre rendez-vous →</a>
+      <a class="btn btn-outline" href="mailto:accompagnement@busato.tech">accompagnement@busato.tech</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Gaetan Busato · EURL</span>
+    <span>Page préparée pour TELETECH INTERNATIONAL à partir de ses informations publiques, le 06/11/2026.</span>
+  </div>
+</footer>
+
+</body>
+</html>
